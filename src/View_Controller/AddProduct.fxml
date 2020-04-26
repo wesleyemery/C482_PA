@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="473.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="925.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Label layoutX="14.0" layoutY="27.0" prefHeight="43.0" prefWidth="105.0" text="Add Product" textFill="#0e09ff" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="27.0">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font>
+      </Label>
+      <HBox layoutX="179.0" layoutY="40.0" spacing="40.0" />
+      <VBox layoutX="102.0" layoutY="92.0" spacing="20.0">
+         <children>
+            <Label text="ID" />
+            <Label text="Name" />
+            <Label text="Inv" />
+            <Label text="Price/Cost" />
+            <Label text="Max" />
+         </children>
+      </VBox>
+      <VBox layoutX="207.0" layoutY="92.0" prefHeight="138.0" prefWidth="127.0" spacing="11.0">
+         <children>
+            <TextField fx:id="idField" prefHeight="25.0" prefWidth="119.0" />
+            <TextField fx:id="nameField" />
+            <TextField fx:id="invField" />
+            <TextField fx:id="priceField" />
+         </children>
+      </VBox>
+      <HBox layoutX="207.0" layoutY="238.0" spacing="80.0">
+         <children>
+            <TextField fx:id="maxField" minWidth="-Infinity" prefHeight="25.0" prefWidth="60.0" />
+            <TextField fx:id="minField" minWidth="-Infinity" prefHeight="25.0" prefWidth="60.0" />
+         </children>
+      </HBox>
+      <Label layoutX="318.0" layoutY="236.0" prefHeight="25.0" prefWidth="21.0" text="Min" />
+      <HBox layoutX="755.0" layoutY="429.0" spacing="30.0">
+         <children>
+            <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
+         </children>
+      </HBox>
+      <TableView layoutX="515.0" layoutY="92.0" prefHeight="104.0" prefWidth="372.0">
+         <columns>
+            <TableColumn fx:id="idCol" prefWidth="75.0" text="Part ID" />
+            <TableColumn fx:id="nameCol" prefWidth="75.0" text="Part Name" />
+            <TableColumn fx:id="invCol" prefWidth="111.0" text="Inventory Level" />
+            <TableColumn fx:id="priceCol" prefWidth="110.0" text="Price Per Unit" />
+         </columns>
+      </TableView>
+      <TableView layoutX="515.0" layoutY="263.0" prefHeight="104.0" prefWidth="372.0">
+         <columns>
+            <TableColumn fx:id="idCol1" prefWidth="75.0" text="Part ID" />
+            <TableColumn fx:id="nameCol1" prefWidth="75.0" text="Part Name" />
+            <TableColumn fx:id="invCol1" prefWidth="111.0" text="Inventory Level" />
+            <TableColumn fx:id="priceCol1" prefWidth="110.0" text="Price Per Unit" />
+         </columns>
+      </TableView>
+      <HBox layoutX="574.0" layoutY="49.0" spacing="10.0">
+         <children>
+            <Button fx:id="searchButton" mnemonicParsing="false" text="Search" />
+            <TextField fx:id="searchField" />
+         </children>
+      </HBox>
+      <Button fx:id="addButton" layoutX="826.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
+      <Button fx:id="deleteButton" layoutX="826.0" layoutY="384.0" mnemonicParsing="false" text="Delete" />
+   </children>
+</AnchorPane>
