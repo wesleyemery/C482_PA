@@ -141,7 +141,15 @@ public class AddProduct implements Initializable {
 
     @FXML
     void cancelButtonAction(ActionEvent event) {
-        backToMain(event);
+        String message = "Are you sure you want to cancel?";
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ALERT: Cancel");
+        alert.setHeaderText("Confirm");
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            backToMain(event);
+        }
     }
 
     @FXML
@@ -149,8 +157,17 @@ public class AddProduct implements Initializable {
         if(associatedParts.getSelectionModel().isEmpty()){
             return;
         }else {
-            Part p = associatedParts.getSelectionModel().getSelectedItem();
-            AssociatedParts.remove(p);
+            String message = "Are you sure you want to delete " + associatedParts.getSelectionModel().getSelectedItem().getPartName() + "?";
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ALERT: Delete Part Selected");
+            alert.setHeaderText("Confirm");
+            alert.setContentText(message);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Part p = associatedParts.getSelectionModel().getSelectedItem();
+                AssociatedParts.remove(p);
+
+            }
         }
 
     }
@@ -198,8 +215,18 @@ public class AddProduct implements Initializable {
                 alert.setContentText("Inventory must be in between min and max allowed.");
                 alert.show();
                 return;
+            } else if (associatedParts.getItems().size() == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error! No Part");
+                alert.setContentText("Each Product must have associated Part.");
+                alert.show();
+                return;
             } else {
                 Product product = new Product(id, name, price, inventory, max, min);
+                for(int i = 0; i < associatedParts.getItems().size(); i++){
+                    Part current = associatedParts.getItems().get(i);
+                    product.addAssociatedPart(current);
+                }
                 Inventory.addProduct(product);
                 backToMain(event);
 
@@ -220,10 +247,18 @@ public class AddProduct implements Initializable {
         partsUpdate();
         refreshTableView();
 
+        //Sets up Associated Table
         partIDColumn1.setCellValueFactory(new PropertyValueFactory<>("partID"));
         partNameColumn1.setCellValueFactory(new PropertyValueFactory<>("partName"));
         partInvLevel1.setCellValueFactory(new PropertyValueFactory<>("partInvLevel"));
         partPrice1.setCellValueFactory(new PropertyValueFactory<>("partPrice"));
+        associatedParts.setItems(AssociatedParts);
+
+        idField.setEditable(false);
+        idField.setDisable(true);
+        //Auto generate id based on number of products
+        idField.setText(String.valueOf(getAllProducts().size() + 1));
+
 
     }
 

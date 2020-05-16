@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static Model.Inventory.getAllParts;
+import static Model.Inventory.getAllProducts;
+
 public class AddPart implements Initializable {
 
     Inventory inv;
@@ -161,5 +164,9 @@ public class AddPart implements Initializable {
         inHouseRadio.setSelected(true);
         machineBox.setVisible(true);
         companyBox.setVisible(false);
+        idField.setEditable(false);
+        idField.setDisable(true);
+        //Auto generate id based on number of products
+        idField.setText(String.valueOf(getAllParts().size() + 1));
     }
 }

@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static Model.Inventory.getAllParts;
@@ -120,8 +121,15 @@ public class ModifyProduct implements Initializable {
 
     @FXML
     void cancelButtonAction(ActionEvent event) {
-        backToMain(event);
-
+        String message = "Are you sure you want to cancel?";
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ALERT: Cancel");
+        alert.setHeaderText("Confirm");
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            backToMain(event);
+        }
     }
 
     @FXML
@@ -129,8 +137,16 @@ public class ModifyProduct implements Initializable {
         if(associatedParts.getSelectionModel().isEmpty()){
             return;
         }else{
-            Part p = associatedParts.getSelectionModel().getSelectedItem();
-            AssociatedParts.remove(p);
+            String message = "Are you sure you want to delete " + associatedParts.getSelectionModel().getSelectedItem().getPartName() + "?";
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ALERT: Delete Part Selected");
+            alert.setHeaderText("Confirm");
+            alert.setContentText(message);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Part p = associatedParts.getSelectionModel().getSelectedItem();
+                AssociatedParts.remove(p);
+            }
         }
 
     }
@@ -182,7 +198,8 @@ public class ModifyProduct implements Initializable {
         partInvLevel1.setCellValueFactory(new PropertyValueFactory<>("partInvLevel"));
         partPrice1.setCellValueFactory(new PropertyValueFactory<>("partPrice"));
         associatedParts.getItems().add(part);
-
+        //product.addAssociatedPart(part);
+        associatedParts.refresh();
     }
 
     @FXML
@@ -208,8 +225,13 @@ public class ModifyProduct implements Initializable {
                 return;
             } else {
                 Product addedProduct = new Product(id, name, price, inventory, max, min);
+                for(int i = 0; i < associatedParts.getItems().size(); i++){
+                    Part current = associatedParts.getItems().get(i);
+                    addedProduct.addAssociatedPart(current);
+                }
                 Inventory.deleteProduct(product);
                 Inventory.addProduct(addedProduct);
+
                 backToMain(event);
 
             }

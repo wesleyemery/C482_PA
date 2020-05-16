@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ModifyPart implements Initializable {
@@ -82,8 +83,15 @@ public class ModifyPart implements Initializable {
 
     @FXML
     void cancelButtonAction(ActionEvent event) {
-        backToMain(event);
-
+        String message = "Are you sure you want to cancel?";
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ALERT: Cancel");
+        alert.setHeaderText("Confirm");
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            backToMain(event);
+        }
     }
 
     private void backToMain(ActionEvent event) {
@@ -163,7 +171,6 @@ public class ModifyPart implements Initializable {
 
         if (part instanceof InHouse) {
             InHouse part1 = (InHouse) part;
-            inHouseRadio.setSelected(true);
             this.idField.setText(String.valueOf(part1.getPartID()));
             this.nameField.setText(String.valueOf(part1.getPartName()));
             this.priceField.setText(String.valueOf(part1.getPartPrice()));
@@ -178,7 +185,6 @@ public class ModifyPart implements Initializable {
         }
         if (part instanceof Outsourced) {
             Outsourced part2 = (Outsourced) part;
-            outsourcedRadio.setSelected(true);
             this.idField.setText(String.valueOf(part2.getPartID()));
             this.nameField.setText(String.valueOf(part2.getPartName()));
             this.priceField.setText(String.valueOf(part2.getPartPrice()));
@@ -187,7 +193,7 @@ public class ModifyPart implements Initializable {
             this.minField.setText(String.valueOf(part2.getPartMin()));
             this.companyField.setText(String.valueOf(((Outsourced) part2).getCompanyName()));
             outsourcedRadio.setSelected(true);
-            companyField.setVisible(true);
+            companyBox.setVisible(true);
             machineBox.setVisible(false);
 
         }
