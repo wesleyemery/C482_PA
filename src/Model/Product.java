@@ -15,7 +15,7 @@ public class Product {
     private int productMax;
 
     //Product Constructor
-        public Product(int productID, String productName, double productPrice, int productInvLevel, int productMin, int productMax) {
+    public Product(int productID, String productName, double productPrice, int productInvLevel, int productMin, int productMax) {
         this.productID = productID;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -74,15 +74,20 @@ public class Product {
     }
 
     //Product Methods
-    public void addAssociatedPart(Part part){
-        associatedParts.add(part);
+    public void addAssociatedPart(Part part) {
+        this.associatedParts.add(part);
     }
 
-    public boolean deleteAssociatedPart(Part selectedPart){
-        return associatedParts.remove(selectedPart);
+    public void deleteAssociatedPart(Part part) {
+        associatedParts.remove(part);
     }
 
-    public ObservableList<Part> getAssociatedParts(){
+    public ObservableList<Part> getAssociatedParts() {
         return associatedParts;
     }
+
+    /*public boolean deleteAssociatedParts() {
+        associatedParts.clear();
+        return true;
+    }*/
 }

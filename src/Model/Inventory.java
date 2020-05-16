@@ -18,10 +18,10 @@ public class Inventory {
     }
 
     //Inventory Add Methods
-    public void addPart(Part part){
+    public static void addPart(Part part){
         allParts.add(part);
     }
-    public void addProduct(Product product){ allProducts.add(product); }
+    public static void addProduct(Product product){ allProducts.add(product); }
 
     //Inventory Lookup Method By ID
     private Part lookupPart(int partId){
@@ -74,10 +74,10 @@ public class Inventory {
     }
 
     //Inventory Delete Methods
-    public boolean deletePart(Part selectedPart){
+    public static boolean deletePart(Part selectedPart){
         return allParts.remove(selectedPart);
     }
-    public boolean deleteProduct(Product selectedProduct){
+    public static boolean deleteProduct(Product selectedProduct){
         return allProducts.remove(selectedProduct);
     }
 

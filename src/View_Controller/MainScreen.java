@@ -26,10 +26,9 @@ import static Model.Inventory.getAllProducts;
 public class MainScreen implements Initializable {
 
     Inventory inv;
+    Product product;
     private static Part modifyPart = null;
     private static Product modifyProduct = null;
-    private ObservableList<Part> partInventory = FXCollections.observableArrayList();
-    private ObservableList<Product> productInventory = FXCollections.observableArrayList();
     private ObservableList<Part> partInventorySearch = FXCollections.observableArrayList();
     private ObservableList<Product> productInventorySearch = FXCollections.observableArrayList();
 
@@ -44,6 +43,7 @@ public class MainScreen implements Initializable {
 
     @FXML
     private Button deletePartButton;
+
     @FXML
     private TableView<Part> partsTable;
 
@@ -99,55 +99,84 @@ public class MainScreen implements Initializable {
 
     //Inventory Add Methods
     @FXML public void addPart(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddPart.fxml"));
+        AddPart controller = new AddPart(inv);
+
+        loader.setController(controller);
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.setTitle("Add Part to Inventory");
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.setTitle("Add Part");
         stage.setResizable(false);
         stage.show();
     }
 
     @FXML public void addProduct(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddProduct.fxml"));
+        AddProduct controller = new AddProduct(inv, product);
+
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Add Product");
+        stage.setResizable(false);
+        stage.show();/*
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddProduct.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.setTitle("Add Product to Inventory");
+        stage.setTitle("Add Product");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.show();
+        stage.show(); */
     }
 
     //Inventory Delete Methods
     @FXML public void deletePart(ActionEvent event) {
-        String message = "Are you sure you want to delete " + partsTable.getSelectionModel().getSelectedItem().getPartName() + "?";
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("ALERT: Delete Part Selected");
-        alert.setHeaderText("Confirm");
-        alert.setContentText(message);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            Part partDelete = partsTable.getSelectionModel().getSelectedItem();
-            inv.deletePart(partDelete);
-            partsUpdate();
+        Part partDelete = partsTable.getSelectionModel().getSelectedItem();
+        if(partDelete != null){
+            String message = "Are you sure you want to delete " + partsTable.getSelectionModel().getSelectedItem().getPartName() + "?";
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ALERT: Delete Part Selected");
+            alert.setHeaderText("Confirm");
+            alert.setContentText(message);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                inv.deletePart(partDelete);
+                partsUpdate();
             }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setContentText("Please select Part");
+            alert.showAndWait();
+        }
     }
 
     @FXML void deleteProduct(ActionEvent event) {
-        String message = "Are you sure you want to delete " + productsTable.getSelectionModel().getSelectedItem().getProductName() + "?";
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("ALERT: Delete Part Selected");
-        alert.setHeaderText("Confirm");
-        alert.setContentText(message);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            Product productDelete = productsTable.getSelectionModel().getSelectedItem();
-            inv.deleteProduct(productDelete);
-            productsUpdate();
+        Product productDelete = productsTable.getSelectionModel().getSelectedItem();
+        if(productDelete != null) {
+            String message = "Are you sure you want to delete " + productsTable.getSelectionModel().getSelectedItem().getProductName() + "?";
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ALERT: Delete Part Selected");
+            alert.setHeaderText("Confirm");
+            alert.setContentText(message);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                inv.deleteProduct(productDelete);
+                productsUpdate();
+            }
+        } else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setContentText(" Please select Part");
+            alert.showAndWait();
         }
     }
+
 
     //Inventory Lookup Methods
     @FXML
@@ -197,13 +226,16 @@ public class MainScreen implements Initializable {
         modifyPart = partsTable.getSelectionModel().getSelectedItem();
         if (modifyPart != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyPart.fxml"));
-            Parent modifyParent = loader.load();
-            Scene modifyScene = new Scene(modifyParent);
-            Stage modifyStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            modifyStage.setResizable(false);
-            modifyStage.setTitle("Modify Part Inventory");
-            modifyStage.setScene(modifyScene);
-            modifyStage.show();
+            ModifyPart controller = new ModifyPart(inv, modifyPart);
+
+            loader.setController(controller);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle("Modify Part");
+            stage.show();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -215,14 +247,25 @@ public class MainScreen implements Initializable {
     @FXML private void updateProduct(ActionEvent event) throws IOException{
         modifyProduct = productsTable.getSelectionModel().getSelectedItem();
         if (modifyProduct != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyPart.fxml"));
-            Parent modifyParent = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyProduct.fxml"));
+            ModifyProduct controller = new ModifyProduct(modifyProduct, inv);
+            loader.setController(controller);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle("Modify Product");
+
+            stage.show();
+            /*
+            Parent modif = loader.load();
             Scene modifyScene = new Scene(modifyParent);
             Stage modifyStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             modifyStage.setResizable(false);
             modifyStage.setTitle("Modify Product Inventory");
             modifyStage.setScene(modifyScene);
-            modifyStage.show();
+            modifyStage.show();*/
 
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

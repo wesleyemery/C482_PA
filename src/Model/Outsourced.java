@@ -9,7 +9,7 @@ public class Outsourced extends Part {
         this.setPartID(partID);
         this.setPartName(partName);
         this.setPartPrice(partPrice);
-    this.setPartInvLevel(partInvLevel);
+        this.setPartInvLevel(partInvLevel);
         this.setPartMax(partMax);
         this.setPartMin(partMin);
         this.setCompanyName(companyName);
