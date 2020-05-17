@@ -83,4 +83,8 @@ public class Product {
         return associatedParts;
     }
 
+    public boolean deleteAssociatedParts() {
+        associatedParts.clear();
+        return true;
+    }
 }

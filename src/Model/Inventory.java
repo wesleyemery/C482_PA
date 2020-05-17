@@ -24,7 +24,7 @@ public class Inventory {
     public static void addProduct(Product product){ allProducts.add(product); }
 
     //Inventory Lookup Method By ID
-    private Part lookupPart(int partId){
+    private static Part lookupPart(int partId){
         int index = -1;
         for (int i = 0; i < allParts.size(); i++) {
             if (allParts.get(i).getPartID() == partId) {
@@ -34,7 +34,7 @@ public class Inventory {
         return allParts.get(index);
     }
 
-    public Product lookupProduct(int productId){
+    public static Product lookupProduct(int productId){
         int index = -1;
         for (int i = 0; i < allProducts.size(); i++) {
             if (allProducts.get(i).getProductID() == productId) {
@@ -45,7 +45,7 @@ public class Inventory {
     }
 
     //Inventory Lookup Method By Name
-    public ObservableList<Part> lookupPart(String partName){
+    public static ObservableList<Part> lookupPart(String partName){
         ObservableList<Part> listArray = FXCollections.observableArrayList();
         for (int i = 0; i < allParts.size(); i++){
             if (allParts.get(i).getPartName().equals(partName)){
@@ -55,7 +55,7 @@ public class Inventory {
         return listArray;
     }
 
-    public ObservableList<Product> lookupProduct(String productName) {
+    public static ObservableList<Product> lookupProduct(String productName) {
         ObservableList<Product> listArray = FXCollections.observableArrayList();
         for (int i = 0; i < allProducts.size(); i++) {
             if (allProducts.get(i).getProductName().equals(productName)) {
@@ -66,10 +66,10 @@ public class Inventory {
     }
 
     //Inventory Update Methods
-    public void updatePart(int index, Part newPart){
+    public static void updatePart(int index, Part newPart){
         allParts.set(index, newPart);
     }
-    public void updateProduct(int index, Product newProduct){
+    public static void updateProduct(int index, Product newProduct){
         allProducts.set(index, newProduct);
     }
 
