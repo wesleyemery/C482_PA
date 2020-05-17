@@ -160,7 +160,7 @@ public class ModifyPart implements Initializable {
             Inventory.addPart(inHouseAddedPart);
         } else if (outsourcedRadio.isSelected()) {
             String compName = companyField.getText();
-            Outsourced outsourcedAddedPart = new Outsourced(id, name, price, inventory, max, min, compName);
+            Outsourced outsourcedAddedPart = new Outsourced(id, name, price, inventory, min, max, compName);
             Inventory.deletePart(part);
             Inventory.addPart(outsourcedAddedPart);
         }
