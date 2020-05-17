@@ -35,11 +35,11 @@ public class MainInventory extends Application {
 
     void addTestData(Inventory inv){
         //InHouse Sample Data
-        Part in_housePart1 = new InHouse(1, "inPart ih33", 80, 1.50, 1, 150, 66410);
-        Part in_housePart2 = new InHouse(2, "inPart ih2", 100, 10.00, 1, 100, 66411);
-        Part in_housePart3 = new InHouse(3, "inPart ih11", 5, 4.00, 5, 1000, 66412);
-        Part in_housePart4 = new InHouse(4, "inPart ih9", 75, 25.50, 5, 200, 66413);
-        Part in_housePart5 = new InHouse(5, "inPart ih5", 15, 3.25, 5, 75, 66414);
+        Part in_housePart1 = new InHouse(1, "inPart ih33", 1.50, 80, 1, 150, 66410);
+        Part in_housePart2 = new InHouse(2, "inPart ih2", 10.00, 44, 1, 100, 66411);
+        Part in_housePart3 = new InHouse(3, "inPart ih11", 2.99, 50, 5, 1000, 66412);
+        Part in_housePart4 = new InHouse(4, "inPart ih9", 25.50, 103, 5, 200, 66413);
+        Part in_housePart5 = new InHouse(5, "inPart ih5", 3.25, 7, 5, 75, 66414);
 
         inv.addPart(in_housePart1);
         inv.addPart(in_housePart2);
@@ -60,23 +60,23 @@ public class MainInventory extends Application {
         inv.addPart(out_sourcedPart4);
         inv.addPart(out_sourcedPart5);
 
-        Product product1 = new Product(11, "CodeRepository", 4.99, 10, 5, 50);
+        Product product1 = new Product(1, "CodeRepository", 4.99, 10, 5, 50);
         product1.addAssociatedPart(in_housePart1);
         product1.addAssociatedPart(out_sourcedPart1);
         inv.addProduct(product1);
-        Product product2 = new Product(12, "ConfigManagement", 20.00, 15, 1, 50);
+        Product product2 = new Product(2, "ConfigManagement", 20.00, 15, 1, 50);
         product2.addAssociatedPart(in_housePart2);
         product2.addAssociatedPart(out_sourcedPart2);
         inv.addProduct(product2);
-        Product product3 = new Product(13, "Cluster", 19.99, 10, 5, 100);
+        Product product3 = new Product(3, "Cluster", 19.99, 10, 5, 100);
         product3.addAssociatedPart(in_housePart3);
         product3.addAssociatedPart(out_sourcedPart3);
         inv.addProduct(product3);
-        Product product4 = new Product(14, "Containers", 100.00, 15, 10, 100);
+        Product product4 = new Product(4, "Containers", 100.00, 15, 10, 100);
         product4.addAssociatedPart(in_housePart4);
         product4.addAssociatedPart(out_sourcedPart4);
         inv.addProduct(product4);
-        Product product5 = new Product(15, "OperatingSystem", .99, 20, 20, 100 );
+        Product product5 = new Product(5, "OperatingSystem", .99, 20, 20, 100 );
         product5.addAssociatedPart(in_housePart5);
         product5.addAssociatedPart(out_sourcedPart5);
         inv.addProduct(product5);

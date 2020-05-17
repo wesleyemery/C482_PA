@@ -16,15 +16,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static Model.Inventory.getAllParts;
-import static Model.Inventory.getAllProducts;
 
 public class AddPart implements Initializable {
 
     Inventory inv;
-    int partNumber = 0;
 
     public AddPart(Inventory inv) {
         this.inv = inv;
@@ -81,7 +80,15 @@ public class AddPart implements Initializable {
 
     @FXML
     void cancelButtonAction(ActionEvent event) {
-        backToMain(event);
+        String message = "Are you sure you want to cancel?";
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ALERT: Cancel");
+        alert.setHeaderText("Confirm");
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            backToMain(event);
+        }
 
     }
 
@@ -147,12 +154,12 @@ public class AddPart implements Initializable {
             return;
         } else if (inHouseRadio.isSelected()) {
             int machineID = Integer.parseInt(machineField.getText());
-            InHouse inHouseAddedPart = new InHouse(id, name, inventory, price, min, max, machineID);
+            InHouse inHouseAddedPart = new InHouse(id, name, price, inventory, min, max, machineID);
             Inventory.addPart(inHouseAddedPart);
             backToMain(event);
         } else if (outsourcedRadio.isSelected()) {
             String compName = companyField.getText();
-            Outsourced outsourcedAddedPart = new Outsourced(id, name, price, inventory, max, min, compName);
+            Outsourced outsourcedAddedPart = new Outsourced(id, name, price, inventory, min, max, compName);
             Inventory.deletePart(outsourcedAddedPart);
             Inventory.addPart(outsourcedAddedPart);
             backToMain(event);

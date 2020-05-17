@@ -222,7 +222,7 @@ public class AddProduct implements Initializable {
                 alert.show();
                 return;
             } else {
-                Product product = new Product(id, name, price, inventory, max, min);
+                Product product = new Product(id, name, price, inventory, min, max);
                 for(int i = 0; i < associatedParts.getItems().size(); i++){
                     Part current = associatedParts.getItems().get(i);
                     product.addAssociatedPart(current);

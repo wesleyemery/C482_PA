@@ -155,7 +155,7 @@ public class ModifyPart implements Initializable {
             return;
         } if (inHouseRadio.isSelected()) {
             int machineID = Integer.parseInt(machineField.getText());
-            InHouse inHouseAddedPart = new InHouse(id, name,  inventory, price, min, max, machineID);
+            InHouse inHouseAddedPart = new InHouse(id, name, price, inventory, min, max, machineID);
             Inventory.deletePart(part);
             Inventory.addPart(inHouseAddedPart);
         } else if (outsourcedRadio.isSelected()) {
@@ -203,5 +203,7 @@ public class ModifyPart implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setData();
+        idField.setEditable(false);
+        idField.setDisable(true);
     }
 }

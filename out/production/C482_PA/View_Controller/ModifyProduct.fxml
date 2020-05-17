@@ -80,9 +80,10 @@
             <Insets right="85.0" />
          </padding>
       </Label>
-      <HBox layoutX="103.0" layoutY="236.0" spacing="40.0">
+      <HBox layoutX="103.0" layoutY="236.0" spacing="20.0">
          <children>
             <TextField fx:id="maxField" minWidth="-Infinity" prefHeight="25.0" prefWidth="60.0" promptText="Max" />
+            <Label alignment="BOTTOM_CENTER" prefHeight="23.0" prefWidth="34.0" text="Min" textAlignment="CENTER" />
             <TextField fx:id="minField" minWidth="-Infinity" prefHeight="25.0" prefWidth="60.0" promptText="Min" />
          </children>
       </HBox>

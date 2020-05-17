@@ -1,6 +1,6 @@
 package Model;
 
-public class Part {
+public abstract class Part {
     //Part Fields
     private int partID;
     private String partName;
@@ -8,6 +8,16 @@ public class Part {
     private int partInvLevel;
     private int partMin;
     private int partMax;
+
+    public Part(int partID, String partName, double partPrice, int partInvLevel, int partMin, int partMax)
+        {
+        this.partID = partID;
+        this.partInvLevel = partInvLevel;
+        this.partMin = partMin;
+        this.partMax = partMax;
+        this.partName = partName;
+        this.partPrice = partPrice;
+        }
 
 
     //Part Getters and Setters

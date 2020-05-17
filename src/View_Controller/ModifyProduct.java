@@ -134,9 +134,9 @@ public class ModifyProduct implements Initializable {
 
     @FXML
     void deletePart(ActionEvent event) {
-        if(associatedParts.getSelectionModel().isEmpty()){
+        if (associatedParts.getSelectionModel().isEmpty()) {
             return;
-        }else{
+        } else {
             String message = "Are you sure you want to delete " + associatedParts.getSelectionModel().getSelectedItem().getPartName() + "?";
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("ALERT: Delete Part Selected");
@@ -154,16 +154,16 @@ public class ModifyProduct implements Initializable {
     @FXML
     void lookupPart(ActionEvent event) {
         String search = searchField.getText();
-        if(!search.isEmpty()){
-            for (Part part: inv.getAllParts()){
-                if(part.getPartName().contains(searchField.getText())){
+        if (!search.isEmpty()) {
+            for (Part part : inv.getAllParts()) {
+                if (part.getPartName().contains(searchField.getText())) {
                     partInventorySearch.add(part);
                 }
             }
             partsTable.setItems(partInventorySearch);
             partsTable.refresh();
 
-        } else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("Part not found");
@@ -192,13 +192,12 @@ public class ModifyProduct implements Initializable {
         }
     }
 
-    private void addAssociatedParts(Part part){
+    private void addAssociatedParts(Part part) {
         partIDColumn1.setCellValueFactory(new PropertyValueFactory<>("partID"));
         partNameColumn1.setCellValueFactory(new PropertyValueFactory<>("partName"));
         partInvLevel1.setCellValueFactory(new PropertyValueFactory<>("partInvLevel"));
         partPrice1.setCellValueFactory(new PropertyValueFactory<>("partPrice"));
         associatedParts.getItems().add(part);
-        //product.addAssociatedPart(part);
         associatedParts.refresh();
     }
 
@@ -225,7 +224,7 @@ public class ModifyProduct implements Initializable {
                 return;
             } else {
                 Product addedProduct = new Product(id, name, price, inventory, max, min);
-                for(int i = 0; i < associatedParts.getItems().size(); i++){
+                for (int i = 0; i < associatedParts.getItems().size(); i++) {
                     Part current = associatedParts.getItems().get(i);
                     addedProduct.addAssociatedPart(current);
                 }
@@ -255,12 +254,9 @@ public class ModifyProduct implements Initializable {
         partNameColumn1.setCellValueFactory(new PropertyValueFactory<>("partName"));
         partInvLevel1.setCellValueFactory(new PropertyValueFactory<>("partInvLevel"));
         partPrice1.setCellValueFactory(new PropertyValueFactory<>("partPrice"));
-        //AssociatedParts = FXCollections.observableArrayList();
-        //associatedParts.setItems(AssociatedParts);
         AssociatedParts = product.getAssociatedParts();
         associatedParts.setItems(AssociatedParts);
 
-        //refreshAssociatedView();
 
         this.idField.setText(String.valueOf(product.getProductID()));
         this.nameField.setText(String.valueOf(product.getProductName()));
@@ -269,11 +265,17 @@ public class ModifyProduct implements Initializable {
         this.maxField.setText(String.valueOf(product.getProductMax()));
         this.minField.setText(String.valueOf(product.getProductMin()));
 
+        idField.setEditable(false);
+        idField.setDisable(true);
 
     }
 
     //Update & Refresh Table Methods
-    private void partsUpdate(){ partsTable.setItems(getAllParts()); }
-    private void refreshTableView() { partsTable.refresh(); }
-    //private void refreshAssociatedView() { associatedParts.refresh(); }
+    private void partsUpdate() {
+        partsTable.setItems(getAllParts());
+    }
+
+    private void refreshTableView() {
+        partsTable.refresh();
+    }
 }
